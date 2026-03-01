@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Yogya FUN Tour — Your Reliable Tour Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-l:#E8C97A;
+  --dark:#0D0D0D;--dark2:#161616;--dark3:#1F1F1F;
+  --cream:#F5F0E8;--muted:#888;--light:#bbb;--green:#25D366;
+}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--cream);overflow-x:hidden;line-height:1.6}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;transition:all .35s ease}
+nav.scrolled{background:rgba(13,13,13,.97);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,168,76,.12);padding:12px 20px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold);text-decoration:none}
+.nav-logo span{color:var(--cream)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-wa{background:var(--green);color:#fff;padding:9px 16px;border-radius:50px;font-size:.78rem;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;box-shadow:0 4px 16px rgba(37,211,102,.3);white-space:nowrap}
+
+/* 3-dot menu */
+.menu-btn{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
+.menu-btn span{width:4px;height:4px;border-radius:50%;background:var(--cream);display:block;transition:background .2s}
+.menu-btn.open span{background:var(--gold)}
+.menu-dropdown{position:fixed;top:66px;right:20px;background:var(--dark3);border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:8px 0;min-width:210px;box-shadow:0 20px 60px rgba(0,0,0,.6);opacity:0;transform:scale(.92) translateY(-8px);transform-origin:top right;pointer-events:none;transition:all .25s cubic-bezier(.32,.72,0,1);z-index:600}
+.menu-dropdown.open{opacity:1;transform:scale(1) translateY(0);pointer-events:all}
+.menu-item{display:flex;align-items:center;gap:12px;padding:13px 20px;color:var(--light);text-decoration:none;font-size:.88rem;font-weight:500;transition:all .15s;border:none;background:none;width:100%;text-align:left;cursor:pointer}
+.menu-item:active{background:rgba(201,168,76,.07);color:var(--gold)}
+.menu-item-icon{font-size:1.1rem;width:22px;text-align:center;flex-shrink:0}
+.menu-divider{height:1px;background:rgba(255,255,255,.06);margin:6px 0}
+
+/* ══ HERO ══ */
+.hero{min-height:100svh;position:relative;display:flex;align-items:center;padding:100px 20px 60px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 80% 40%,rgba(42,122,75,.18) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 10% 80%,rgba(201,168,76,.08) 0%,transparent 60%),linear-gradient(160deg,#0D0D0D 0%,#121a13 60%,#0D0D0D 100%)}
+.hero-lines{position:absolute;inset:0;opacity:.035;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 1px,transparent 48px)}
+.hero-inner{position:relative;z-index:2;max-width:480px;margin:0 auto;width:100%}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:5px 14px;border-radius:100px;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;animation:fadeUp .8s ease both}
+.hero-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,9vw,3.6rem);line-height:1.08;font-weight:900;animation:fadeUp .8s .1s ease both}
+.hero h1 em{font-style:italic;color:var(--gold);display:block}
+.hero-sub{margin-top:18px;font-size:.95rem;color:var(--light);line-height:1.75;animation:fadeUp .8s .2s ease both}
+.hero-img{width:100%;margin-top:32px;border-radius:12px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(201,168,76,.2);animation:fadeUp .8s .25s ease both;position:relative}
+.hero-img img{width:100%;display:block;filter:brightness(.85) saturate(1.1)}
+.hero-badge{position:absolute;bottom:14px;left:14px;background:var(--gold);color:var(--dark);padding:10px 16px;border-radius:8px;font-weight:700;text-align:center;box-shadow:0 8px 24px rgba(201,168,76,.4)}
+.hero-badge strong{font-family:'Playfair Display',serif;font-size:1.6rem;display:block;line-height:1}
+.hero-badge span{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase}
+.hero-actions{margin-top:28px;display:flex;gap:12px;animation:fadeUp .8s .35s ease both}
+.btn-gold{flex:1;background:var(--gold);color:var(--dark);padding:15px 20px;border-radius:50px;font-weight:700;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase;text-align:center;text-decoration:none;border:none;cursor:pointer;display:block}
+.btn-outline{flex:1;border:1.5px solid rgba(255,255,255,.18);color:var(--cream);padding:15px 20px;border-radius:50px;font-weight:600;font-size:.88rem;text-align:center;text-decoration:none;background:transparent;cursor:pointer}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ STATS ══ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);background:var(--dark3)}
+.stat{padding:20px 10px;text-align:center;border-right:1px solid rgba(255,255,255,.05)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1}
+.stat-l{font-size:.6rem;color:var(--muted);letter-spacing:.03em;text-transform:uppercase;margin-top:4px}
+
+/* ══ SECTIONS ══ */
+section{padding:60px 20px}
+.s-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.s-label::before{content:'';width:32px;height:1px;background:var(--gold)}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,6vw,2.4rem);font-weight:700;line-height:1.2}
+.gold{color:var(--gold)}
+
+/* ══ ABOUT ══ */
+.about-img{width:100%;border-radius:12px;overflow:hidden;margin-bottom:28px;box-shadow:0 20px 50px rgba(0,0,0,.5);border:1px solid rgba(201,168,76,.15)}
+.about-img img{width:100%;display:block;filter:brightness(.85)}
+.about-text p{color:var(--light);line-height:1.8;font-size:.95rem;margin-bottom:16px}
+.about-text strong{color:var(--gold);font-weight:600}
+
+/* ══ PACKAGES ══ */
+.packages-section{background:var(--dark2)}
+.pkg-grid{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.pkg-card.hidden-pkg{display:none}
+.pkg-card.hidden-pkg.show{display:block}
+.pkg-card{background:var(--dark3);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .3s}
+.pkg-card.featured{border-color:rgba(201,168,76,.4);box-shadow:0 0 30px rgba(201,168,76,.08)}
+.pkg-img-wrap{position:relative;height:190px;overflow:hidden}
+.pkg-img-wrap img{width:100%;height:100%;object-fit:cover;filter:brightness(.8);transition:transform .5s}
+.pkg-card:active .pkg-img-wrap img{transform:scale(1.03)}
+.pkg-badge{position:absolute;top:12px;left:12px;background:rgba(13,13,13,.85);backdrop-filter:blur(8px);border:1px solid rgba(201,168,76,.35);color:var(--gold);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:50px}
+.pkg-star{position:absolute;top:12px;right:12px;font-size:.72rem;background:var(--gold);color:var(--dark);padding:4px 10px;border-radius:50px;font-weight:700}
+.pkg-body{padding:18px}
+.pkg-tag{font-size:.67rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.pkg-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:8px}
+.pkg-desc{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.pkg-price-label{font-size:.68rem;color:var(--muted)}
+.pkg-price{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold);font-weight:700;line-height:1.2}
+.pkg-price small{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:400;color:var(--muted)}
+.pkg-footer{display:flex;gap:10px;padding-top:14px;margin-top:14px;border-top:1px solid rgba(255,255,255,.06)}
+.pkg-btn-wa{flex:1;background:var(--green);color:#fff;padding:11px;border-radius:50px;font-weight:700;font-size:.8rem;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.pkg-btn-detail{flex:1;border:1.5px solid rgba(201,168,76,.35);color:var(--gold);padding:11px;border-radius:50px;font-weight:600;font-size:.8rem;text-align:center;background:transparent;cursor:pointer}
+.show-all-wrap{margin-top:24px;text-align:center}
+.show-all-btn{display:inline-flex;align-items:center;gap:10px;border:1.5px solid rgba(201,168,76,.35);color:var(--gold);background:rgba(201,168,76,.05);padding:14px 28px;border-radius:50px;font-weight:600;font-size:.88rem;cursor:pointer;width:100%;justify-content:center}
+.show-all-btn .arr{transition:transform .3s}
+.show-all-btn.expanded .arr{transform:rotate(180deg)}
+
+/* ══ TRANSPORT ══ */
+.transport-section{background:var(--dark)}
+.transport-hero-img{width:100%;border-radius:12px;overflow:hidden;margin:24px 0;box-shadow:0 20px 50px rgba(0,0,0,.5);border:1px solid rgba(201,168,76,.15)}
+.transport-hero-img img{width:100%;display:block;filter:brightness(.85)}
+.transport-cards{display:flex;flex-direction:column;gap:16px;margin-top:0}
+.t-card{background:var(--dark3);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden}
+.t-card-header{background:linear-gradient(135deg,rgba(201,168,76,.12) 0%,rgba(201,168,76,.03) 100%);border-bottom:1px solid rgba(201,168,76,.15);padding:18px 20px 14px}
+.t-card-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--gold);margin-bottom:0}
+.t-card-body{padding:18px 20px 20px}
+.t-card-body p{font-size:.88rem;color:var(--light);line-height:1.7;margin-bottom:16px}
+.price-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--dark4,#252525);border-radius:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,.05)}
+.price-label{font-size:.82rem;color:var(--light);font-weight:500}
+.price-val{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);font-weight:700}
+.t-book-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--green);color:#fff;padding:13px;border-radius:50px;font-weight:700;font-size:.85rem;text-decoration:none;margin-top:16px;box-shadow:0 4px 16px rgba(37,211,102,.25)}
+
+/* ══ WHY ══ */
+.why-section{background:var(--dark2)}
+.why-grid{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.why-item{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:22px 20px;display:flex;align-items:flex-start;gap:16px}
+.why-icon{font-size:1.8rem;flex-shrink:0;margin-top:2px}
+.why-title{font-weight:700;font-size:.95rem;margin-bottom:6px}
+.why-desc{font-size:.83rem;color:var(--muted);line-height:1.65}
+
+/* ══ TESTIMONIALS ══ */
+.testi-section{background:var(--dark)}
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
+.testi-item{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.testi-item img{width:100%;display:block;object-fit:cover;height:160px;filter:brightness(.85) saturate(.9)}
+
+/* ══ GALLERY ══ */
+.gallery-section{background:var(--dark2)}
+.gallery-tabs{display:flex;gap:8px;margin-top:24px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.gallery-tabs::-webkit-scrollbar{display:none}
+.gtab{padding:8px 16px;border-radius:50px;font-size:.78rem;font-weight:600;letter-spacing:.04em;border:1.5px solid rgba(255,255,255,.1);color:var(--muted);background:transparent;cursor:pointer;white-space:nowrap;transition:all .2s}
+.gtab.active{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.4);color:var(--gold)}
+.gallery-cat{display:none}
+.gallery-cat.active{display:grid}
+.gallery-grid{grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.gallery-cat.active .gallery-grid{display:grid}
+.gal-item{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.gal-item img{width:100%;display:block;object-fit:cover;height:150px;filter:brightness(.82) saturate(.9);transition:transform .4s,filter .4s}
+.gal-item:active img{transform:scale(1.04);filter:brightness(.95) saturate(1)}
+.gal-item.tall img{height:200px}
+
+/* ══ CTA ══ */
+.cta-section{background:linear-gradient(160deg,var(--dark2) 0%,#0f1f14 50%,var(--dark2) 100%);text-align:center;position:relative;overflow:hidden;padding:80px 20px}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,.07) 0%,transparent 70%)}
+.cta-inner{position:relative;z-index:2}
+.cta-section .s-label{justify-content:center}
+.cta-sub{color:var(--muted);font-size:.92rem;margin:14px 0 28px}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--dark);padding:16px 28px;border-radius:50px;font-weight:700;font-size:.9rem;text-decoration:none;letter-spacing:.04em;text-transform:uppercase}
+
+/* ══ FOOTER ══ */
+footer{background:#0a0a0a;border-top:1px solid rgba(201,168,76,.1);padding:48px 20px 32px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold);margin-bottom:12px;display:block}
+.footer-logo span{color:var(--cream)}
+.footer-about{color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:24px}
+.footer-socials{display:flex;gap:10px;margin-bottom:36px}
+.soc{width:38px;height:38px;border:1px solid rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;font-weight:700;text-decoration:none}
+.footer-heading{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.88rem}
+.footer-contact{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.fc-item{display:flex;gap:10px;font-size:.83rem;color:var(--muted);align-items:flex-start}
+.fc-item a{color:var(--muted);text-decoration:none}
+.footer-bottom{padding-top:20px;border-top:1px solid rgba(255,255,255,.06);text-align:center;color:var(--muted);font-size:.76rem}
+
+/* ══ WA FLOAT ══ */
+.wa-float{position:fixed;bottom:24px;right:20px;z-index:200;background:var(--green);color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.5);animation:floatB 3s ease-in-out infinite 2s}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* ══ MODAL ══ */
+.overlay{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.overlay.open{opacity:1;pointer-events:all}
+.modal{position:fixed;bottom:0;left:0;right:0;z-index:800;background:var(--dark2);border-radius:20px 20px 0 0;max-height:92svh;overflow-y:auto;overflow-x:hidden;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.modal::-webkit-scrollbar{display:none}
+.modal.open{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:12px auto 0}
+.modal-hero-img{width:100%;height:220px;object-fit:cover;display:block;filter:brightness(.8)}
+.modal-body{padding:24px 20px 52px}
+.modal-back{display:flex;align-items:center;gap:8px;color:var(--gold);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:none;border:none;cursor:pointer;padding:0;margin-bottom:20px}
+.modal-tag{font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.modal-subtitle{font-size:.85rem;color:var(--muted);margin-bottom:20px;font-style:italic;line-height:1.5}
+.modal-price-box{background:var(--dark3);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:16px 18px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.modal-price-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.modal-price-val{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700}
+.modal-price-note{font-size:.75rem;color:var(--muted)}
+.modal-persons{text-align:right;font-size:.78rem;color:var(--light);background:rgba(201,168,76,.1);padding:8px 12px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.modal-sec{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.modal-sec::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.15)}
+.modal-desc{font-size:.9rem;color:var(--light);line-height:1.78;margin-bottom:24px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.modal-col-title{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.modal-list li{display:flex;align-items:flex-start;gap:8px;font-size:.84rem;color:var(--light);line-height:1.5}
+.modal-list li::before{content:'✓';color:var(--gold);font-weight:700;font-size:.8rem;flex-shrink:0;margin-top:2px}
+.modal-list.excl li::before{content:'✕';color:var(--muted)}
+.modal-cta{display:flex;flex-direction:column;gap:10px}
+.modal-wa{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:#fff;padding:16px;border-radius:50px;font-weight:700;font-size:.92rem;text-decoration:none;box-shadow:0 6px 20px rgba(37,211,102,.3)}
+.modal-close{border:1.5px solid rgba(255,255,255,.12);color:var(--light);padding:14px;border-radius:50px;font-weight:600;font-size:.88rem;background:transparent;cursor:pointer;width:100%}
+
+/* ══ DESKTOP ══ */
+@media(min-width:768px){
+  nav{padding:20px 48px}
+  nav.scrolled{padding:14px 48px}
+  .menu-dropdown{right:48px;top:72px}
+  .hero{padding:120px 48px 80px}
+  .hero-inner{max-width:960px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .hero-img{margin-top:0}
+  section{padding:80px 48px}
+  .pkg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .pkg-card.hidden-pkg{display:none}
+  .pkg-card.hidden-pkg.show{display:block}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+  .testi-grid{grid-template-columns:repeat(3,1fr)}
+  .testi-item img{height:180px}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .gal-item img{height:170px}
+  .transport-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .modal{max-width:480px;left:50%;right:auto;transform:translate(-50%,100%);border-radius:20px 20px 0 0}
+  .modal.open{transform:translate(-50%,0)}
+  .modal-hero-img{height:260px}
+}
+@media(min-width:1024px){
+  .pkg-grid{grid-template-columns:repeat(3,1fr)}
+  .hero-inner{max-width:1200px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Yogya <span>FUN</span> Tour</a>
+  <div class="nav-right">
+    <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+a+tour" class="nav-wa" target="_blank">💬 Book Now</a>
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Dropdown Menu -->
+<div class="menu-dropdown" id="menuDropdown">
+  <a href="#" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">🏠</span> Home</a>
+  <a href="#about" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">ℹ️</span> About Us</a>
+  <div class="menu-divider"></div>
+  <a href="#packages" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">🗺️</span> Tour Packages</a>
+  <a href="#transport" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">🚌</span> Transport Service</a>
+  <div class="menu-divider"></div>
+  <a href="#gallery" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">📸</span> Gallery</a>
+  <a href="#testimonials" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">⭐</span> Testimonials</a>
+  <a href="#contact" class="menu-item" onclick="closeMenu()"><span class="menu-item-icon">📞</span> Contact</a>
+  <div class="menu-divider"></div>
+  <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+a+tour" class="menu-item" target="_blank" onclick="closeMenu()"><span class="menu-item-icon">💬</span> WhatsApp Us</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-pill">Yogyakarta's Premier Tour Experience</div>
+      <h1>Your Reliable Tour Partner For <em>FUN & Memorable</em> Vacation</h1>
+      <p class="hero-sub">Discover the true charm of Yogyakarta — ancient temples, volcanic landscapes & hidden gems — with experienced local guides at great value.</p>
+      <div class="hero-actions">
+        <a href="#packages" class="btn-gold">Explore Packages</a>
+        <a href="#about" class="btn-outline">About Us</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-home-banner.webp" alt="Yogya Fun Tour">
+      <div class="hero-badge"><strong>9+</strong><span>Tour Packages</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">9+</div><div class="stat-l">Packages</div></div>
+  <div class="stat"><div class="stat-n">1–4</div><div class="stat-l">Per Group</div></div>
+  <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Satisfaction</div></div>
+  <div class="stat"><div class="stat-n">Legal</div><div class="stat-l">Licensed</div></div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="s-label">About Us</div>
+  <h2 class="s-title">Welcome to Yogya <span class="gold">FUN</span> Tour</h2>
+  <div class="about-img"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-home-banner.webp" alt="Yogya Fun Tour"></div>
+  <div class="about-text">
+    <p>Supported by experienced professionals in the hospitality and tour industry, we combine expertise, local knowledge, and personal service to help you discover <strong>the true charm of Yogyakarta.</strong></p>
+    <p>Join us in exploring Yogyakarta's hidden gems, vibrant culture, rich history, and beautiful natural landscapes. We are committed to being your trusted tour partner, delivering <strong>FUN</strong>, safe, and memorable travel experiences with flexible itineraries, friendly service, and great value.</p>
+  </div>
+</section>
+
+<!-- ══ PACKAGES ══ -->
+<section id="packages" class="packages-section">
+  <div class="s-label">Tour Packages</div>
+  <h2 class="s-title">Yogyakarta <span class="gold">Tour</span> Packages</h2>
+
+  <div class="pkg-grid" id="pkgGrid">
+
+    <!-- PACK 1 -->
+    <div class="pkg-card featured" onclick="openModal('fun1')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-01.webp" alt="Fun 1">
+        <div class="pkg-badge">FUN Pack 1</div>
+        <div class="pkg-star">⭐ Popular</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">1 – 4 Persons · Group Tour</div>
+        <div class="pkg-title">Borobudur Sunrise Tour</div>
+        <div class="pkg-desc">Borobudur Sunrise from Setumbu Hill, Borobudur & Merapi Volcano Tour</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 825.000 <small>/group</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+1" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 2 -->
+    <div class="pkg-card" onclick="openModal('fun2')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-02.webp" alt="Fun 2">
+        <div class="pkg-badge">FUN Pack 2</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">1 – 4 Persons · Group Tour</div>
+        <div class="pkg-title">Borobudur & Yogya Tour</div>
+        <div class="pkg-desc">Borobudur, Merapi Volcano, Prambanan Temple Tour</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 775.000 <small>/group</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+2" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 3 -->
+    <div class="pkg-card" onclick="openModal('fun3')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-03.webp" alt="Fun 3">
+        <div class="pkg-badge">FUN Pack 3</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">1 – 4 Persons · Group Tour</div>
+        <div class="pkg-title">Merapi Volcano & Yogya Tour</div>
+        <div class="pkg-desc">Merapi Volcano, Prambanan and IJO Sunset Tour</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 700.000 <small>/group</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+3" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 4 — hidden -->
+    <div class="pkg-card hidden-pkg" onclick="openModal('fun4')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-04.webp" alt="Fun 4">
+        <div class="pkg-badge">FUN Pack 4</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">1 – 4 Persons · Group Tour</div>
+        <div class="pkg-title">Prambanan & Yogya Tour</div>
+        <div class="pkg-desc">Sultan Palace, Tamansari Water Castle & Prambanan Temple</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 700.000 <small>/group</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+4" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 5 — hidden -->
+    <div class="pkg-card hidden-pkg" onclick="openModal('fun5')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-05.webp" alt="Fun 5">
+        <div class="pkg-badge">FUN Pack 5</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">1 – 4 Persons · Adventure Tour</div>
+        <div class="pkg-title">Jomblang & Timang Tour</div>
+        <div class="pkg-desc">Jomblang Cave & Timang Beach gondola adventure</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 875.000 <small>/group</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+5" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 6 — hidden -->
+    <div class="pkg-card hidden-pkg" onclick="openModal('fun6')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-06.webp" alt="Fun 6">
+        <div class="pkg-badge">FUN Pack 6</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">1 – 4 Persons · Nature Tour</div>
+        <div class="pkg-title">Pindul Cave & Yogya Tour</div>
+        <div class="pkg-desc">Pindul Cave, Sri Getuk Waterfall & Pengger Pine Forest</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 775.000 <small>/group</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+6" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 7 — hidden -->
+    <div class="pkg-card hidden-pkg" onclick="openModal('fun7')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-07.webp" alt="Fun 7">
+        <div class="pkg-badge">FUN Pack 7</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">Min. 2 Pax · Cycling Tour</div>
+        <div class="pkg-title">Cycling Tour de Temple</div>
+        <div class="pkg-desc">Cycling through rice fields & beautiful temples of Yogyakarta</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 275.000 <small>/pax</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+7" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 8 — hidden -->
+    <div class="pkg-card hidden-pkg" onclick="openModal('fun8')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-08.webp" alt="Fun 8">
+        <div class="pkg-badge">FUN Pack 8</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">Min. 2 Pax · Cycling Tour</div>
+        <div class="pkg-title">Cycling Tour de Nature</div>
+        <div class="pkg-desc">Cycling through green countryside, rice fields & natural ponds</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 250.000 <small>/pax</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+8" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACK 9 — hidden -->
+    <div class="pkg-card hidden-pkg" onclick="openModal('fun9')">
+      <div class="pkg-img-wrap">
+        <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-09.webp" alt="Fun 9">
+        <div class="pkg-badge">FUN Pack 9</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-tag">1 – 4 Persons · Culture Tour</div>
+        <div class="pkg-title">Yogya City Tour & Batik Class</div>
+        <div class="pkg-desc">Kraton Sultan Palace, Prambanan Temple & Batik Making Class</div>
+        <div class="pkg-price-label">Starting from</div>
+        <div class="pkg-price">IDR 700.000 <small>/group</small></div>
+        <div class="pkg-footer">
+          <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+9" class="pkg-btn-wa" target="_blank" onclick="event.stopPropagation()">💬 Book</a>
+          <button class="pkg-btn-detail">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="show-all-wrap">
+    <button class="show-all-btn" id="showAllBtn" onclick="toggleAllPackages()">
+      <span id="showAllText">🗺️ See All 9 Packages</span>
+      <span class="arr">▾</span>
+    </button>
+  </div>
+</section>
+
+<!-- ══ TRANSPORT ══ -->
+<section id="transport" class="transport-section">
+  <div class="s-label">Transport</div>
+  <h2 class="s-title">Yogya <span class="gold">Transport</span> Service</h2>
+  <p style="color:var(--light);font-size:.95rem;line-height:1.75;margin-top:14px">It's Time to Start Your Adventures</p>
+
+  <div class="transport-hero-img">
+    <img src="https://yogyafuntour.com/wp-content/uploads/2024/07/transport-service-1024x683.webp" alt="Yogya Transport Service">
+  </div>
+
+  <div class="transport-cards">
+    <!-- Airport Shuttle -->
+    <div class="t-card">
+      <div class="t-card-header">
+        <div class="t-card-title">✈️ Airport Shuttle Service</div>
+      </div>
+      <div class="t-card-body">
+        <p>Travel comfortably with our Airport Shuttle Service—easy pick-up and drop-off at the best value.</p>
+        <div class="price-row">
+          <span class="price-label">🚗 Pick Up Service</span>
+          <span class="price-val">IDR 400.000</span>
+        </div>
+        <div class="price-row">
+          <span class="price-label">🏁 Drop Service</span>
+          <span class="price-val">IDR 350.000</span>
+        </div>
+        <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+transport+service" class="t-book-btn" target="_blank">
+          💬 Book Now
+        </a>
+      </div>
+    </div>
+
+    <!-- Prambanan Ballet -->
+    <div class="t-card">
+      <div class="t-card-header">
+        <div class="t-card-title">🎭 Prambanan Ramayana Ballet</div>
+      </div>
+      <div class="t-card-body">
+        <p>Drop & Pick up service to Prambanan Ramayana Ballet — a spectacular traditional Javanese performance set against the magnificent Prambanan Temple backdrop.</p>
+        <div class="price-row">
+          <span class="price-label">🔄 Drop & Pick Up</span>
+          <span class="price-val">IDR 350.000</span>
+        </div>
+        <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Prambanan+Ramayana+Ballet+transport" class="t-book-btn" target="_blank">
+          💬 Book Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY ══ -->
+<section id="why" class="why-section">
+  <div class="s-label">Why Choose Us</div>
+  <h2 class="s-title">What Makes Us <span class="gold">Different</span></h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-icon">🏢</div>
+      <div>
+        <div class="why-title">Experienced & Legal Company</div>
+        <div class="why-desc">We are a legally registered tour company backed by years of experience in the hospitality and tourism industry across Yogyakarta.</div>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🎖️</div>
+      <div>
+        <div class="why-title">Licensed & Certified Staff</div>
+        <div class="why-desc">Our Tour Operators, Tour Leaders, and Tour Guides are fully experienced and licensed, ensuring your safety and satisfaction throughout your trip.</div>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🗺️</div>
+      <div>
+        <div class="why-title">Customizable & Affordable</div>
+        <div class="why-desc">Flexible itineraries tailored to your needs and schedule — all at great value prices without compromising quality or experience.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section id="testimonials" style="background:var(--dark2);padding:60px 20px">
+  <div class="s-label">Client Reviews</div>
+  <h2 class="s-title">What Our <span class="gold">Clients</span> Say</h2>
+  <div class="testi-grid" style="margin-top:28px">
+    <div class="testi-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-testi-01.jpg" alt="Review 1"></div>
+    <div class="testi-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-testi-02-768x859.jpg" alt="Review 2"></div>
+    <div class="testi-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-testi-03-768x850.jpg" alt="Review 3"></div>
+    <div class="testi-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-testi-04-768x456.jpg" alt="Review 4"></div>
+    <div class="testi-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-testi-05-768x539.jpg" alt="Review 5"></div>
+    <div class="testi-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-testi-06-768x607.jpg" alt="Review 6"></div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section id="gallery" class="gallery-section">
+  <div class="s-label">Our Gallery</div>
+  <h2 class="s-title">Explore <span class="gold">Our Adventures</span></h2>
+
+  <!-- Category tabs -->
+  <div class="gallery-tabs">
+    <button class="gtab active" onclick="switchGallery('adventure',this)">🏔️ Adventure</button>
+    <button class="gtab" onclick="switchGallery('cycling',this)">🚴 Cycling</button>
+    <button class="gtab" onclick="switchGallery('culture',this)">🏛️ Culture</button>
+    <button class="gtab" onclick="switchGallery('sunrise',this)">🌅 Sunrise & Sunset</button>
+    <button class="gtab" onclick="switchGallery('airport',this)">✈️ Airport</button>
+  </div>
+
+  <!-- Adventure -->
+  <div class="gallery-cat active" id="cat-adventure">
+    <div class="gallery-grid">
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-02-768x1024.jpg" alt="Jeep Lavatour"></div>
+      <div class="gal-item tall"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.41-771x1024.jpeg" alt="Timang Beach"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-07-1024x783.jpg" alt="Adventure Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-10-1014x1024.jpg" alt="River Tubing Pindul Cave"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-08-1024x834.jpg" alt="Jeep Merapi Lavatour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-11.jpg" alt="Jomblang Cave"></div>
+    </div>
+  </div>
+
+  <!-- Cycling -->
+  <div class="gallery-cat" id="cat-cycling">
+    <div class="gallery-grid">
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-25-at-20.19.48.jpeg" alt="Cycling Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-25-at-20.16.54.jpeg" alt="Cycling Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-25-at-20.16.51.jpeg" alt="Cycling Village"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-25-at-20.16.56-2.jpeg" alt="Cycling Temple"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/WhatsApp-Image-2024-07-22-at-12.42.11.jpeg" alt="Cycling Rice Field"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/WhatsApp-Image-2024-07-22-at-12.43.03.jpeg" alt="Cycling Tour"></div>
+    </div>
+  </div>
+
+  <!-- Culture -->
+  <div class="gallery-cat" id="cat-culture">
+    <div class="gallery-grid">
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.48-1-1024x768.jpeg" alt="Culture Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.45-1024x683.jpeg" alt="Culture Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-04-1024x768.jpg" alt="Temple Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-05-1024x792.jpg" alt="Prambanan Temple"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-06-1024x824.jpg" alt="Heritage Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-25-at-19.46.32-1024x1024.jpeg" alt="Batik Class"></div>
+    </div>
+  </div>
+
+  <!-- Sunrise & Sunset -->
+  <div class="gallery-cat" id="cat-sunrise">
+    <div class="gallery-grid">
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.43-1-768x1024.jpeg" alt="Borobudur Sunrise"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.44-768x1024.jpeg" alt="Sunrise Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-28-at-13.50.41-1024x768.jpeg" alt="Sunrise View"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.49-768x1024.jpeg" alt="Sunset Tour"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/heading-01-913x1024.jpeg" alt="Borobudur Sunrise"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/yogya-fun-tour-03-1024x852.jpg" alt="Sunrise Borobudur"></div>
+    </div>
+  </div>
+
+  <!-- Airport -->
+  <div class="gallery-cat" id="cat-airport">
+    <div class="gallery-grid">
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.47-768x576.jpeg" alt="Airport Transfer"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.48-768x1024.jpeg" alt="Airport Shuttle"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/07/service-shuttle-768x630.webp" alt="Shuttle Service"></div>
+      <div class="gal-item"><img src="https://yogyafuntour.com/wp-content/uploads/2024/08/WhatsApp-Image-2024-08-27-at-19.54.46-768x656.jpeg" alt="Airport Drop Off"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <div class="s-label" style="justify-content:center">Join Us</div>
+    <h2 class="s-title">Are You Ready To Join Us<br>On Your <span class="gold">Next Trip? 🌄</span></h2>
+    <p class="cta-sub">Together We Can Make Awesome Memories.</p>
+    <a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+a+tour" class="cta-btn" target="_blank">💬 Contact Us via WhatsApp</a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span class="footer-logo">Yogya <span>FUN</span> Tour</span>
+  <p class="footer-about">Join us to explore Yogyakarta's hidden gems, immerse yourself in its vibrant culture, and discover its fascinating history along with breathtaking natural wonders across the region.</p>
+  <div class="footer-socials">
+    <a href="https://www.facebook.com/izzati.jogjatour.5" class="soc" target="_blank">fb</a>
+    <a href="https://instagram.com/izzatijogjatour" class="soc" target="_blank">ig</a>
+    <a href="https://youtube.com/@izzatijogjatour5366" class="soc" target="_blank">yt</a>
+    <a href="https://tiktok.com/@jogjafuntastic" class="soc" target="_blank">tt</a>
+  </div>
+  <div class="footer-heading">Quick Links</div>
+  <ul class="footer-links">
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#packages">Tour Packages</a></li>
+    <li><a href="#transport">Transport Service</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-heading">Contact</div>
+  <div class="footer-contact">
+    <div class="fc-item">📍 <span>Sombomerten No.114 Maguwoharjo Depok Sleman 55282 DI Yogyakarta</span></div>
+    <div class="fc-item">✉️ <a href="mailto:izzatijogjatour@gmail.com">izzatijogjatour@gmail.com</a></div>
+    <div class="fc-item">📱 <a href="https://wa.me/6281228123472">+62 81 228 1234 72</a></div>
+    <div class="fc-item">🔷 <span>izzati jogjatour</span></div>
+  </div>
+  <div class="footer-bottom">© 2024 Yogya Fun Tour. All rights reserved.</div>
+</footer>
+
+<a href="https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+a+tour" class="wa-float" target="_blank">💬</a>
+
+<!-- ══ OVERLAY & MODAL ══ -->
+<div class="overlay" id="overlay" onclick="closeModal()"></div>
+<div class="modal" id="modal">
+  <div class="modal-handle"></div>
+  <img class="modal-hero-img" id="m-img" src="" alt="">
+  <div class="modal-body">
+    <button class="modal-back" onclick="closeModal()">← Back to Packages</button>
+    <div class="modal-tag" id="m-tag"></div>
+    <div class="modal-title" id="m-title"></div>
+    <div class="modal-subtitle" id="m-sub"></div>
+    <div class="modal-price-box">
+      <div>
+        <div class="modal-price-label">Starting From</div>
+        <div class="modal-price-val" id="m-price"></div>
+        <div class="modal-price-note" id="m-pnote"></div>
+      </div>
+      <div class="modal-persons" id="m-persons"></div>
+    </div>
+    <div class="modal-sec">Tour Description</div>
+    <div class="modal-desc" id="m-desc"></div>
+    <div class="modal-grid">
+      <div>
+        <div class="modal-col-title">✅ Includes</div>
+        <ul class="modal-list" id="m-inc"></ul>
+      </div>
+      <div>
+        <div class="modal-col-title">❌ Excludes</div>
+        <ul class="modal-list excl" id="m-exc"></ul>
+      </div>
+    </div>
+    <div class="modal-cta">
+      <a class="modal-wa" id="m-wa" href="#" target="_blank">💬 Book Now via WhatsApp</a>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Package Data ── */
+const P={
+  fun1:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-01.webp',tag:'FUN Pack 1 · Group Tour',title:'Borobudur Sunrise Tour',sub:'Borobudur Sunrise from Setumbu Hill, Borobudur & Merapi Volcano Tour',price:'IDR 825.000',pnote:'/group (up to 4 persons)',persons:'👥 1 – 4 Persons',desc:'Start early from Yogyakarta city and head to Setumbu Hill to catch the sunrise with a view of Borobudur. Continue the trip with a visit to Borobudur Temple, the world\'s largest Buddhist temple and a UNESCO World Heritage Site. Wrap up the tour with a fun off-road adventure around Mount Merapi.',inc:['Car, fuel, driver as guide','Water (cold water)'],exc:['Admission','Meals','Personal Expenses','Jeep Rental for Merapi Lava Tour'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+1'},
+  fun2:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-02.webp',tag:'FUN Pack 2 · Group Tour',title:'Borobudur & Yogya Tour',sub:'Borobudur, Merapi Volcano, Prambanan Temple Tour',price:'IDR 775.000',pnote:'/group (up to 4 persons)',persons:'👥 1 – 4 Persons',desc:'Start the day with a visit to Borobudur Temple, the world\'s largest Buddhist temple and a UNESCO World Heritage Site. Temple access is managed by a daily quota and scheduled time slots for climbing the structure. Continue the journey with an exciting Jeep ride around Mount Merapi to explore the area of the active volcano. The tour ends with a visit to Prambanan Temple, the iconic and largest Hindu temple complex in Indonesia.',inc:['Car, fuel, driver as guide','Water (cold water)'],exc:['Admission','Meals','Personal Expenses','Jeep rental for Merapi lava tour'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+2'},
+  fun3:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-03.webp',tag:'FUN Pack 3 · Group Tour',title:'Merapi Volcano & Yogya Tour',sub:'Merapi Volcano, Prambanan & IJo Sunset Tour',price:'IDR 700.000',pnote:'/group (up to 4 persons)',persons:'👥 1 – 4 Persons',desc:'Create a fun day by exploring the cool mountain area and beautiful volcanic landscape of Mount Merapi with an exciting 4×4 Jeep lava tour. Continue the trip with a visit to Prambanan Temple, the most beautiful Hindu temple complex in the area. The tour will be completed by enjoying the sunset at Ijo Temple, the highest Hindu temple in Yogyakarta.',inc:['Car, fuel, driver as guide','Water (cold water)'],exc:['Admission','Meals','Personal Expenses','Jeep rental for Merapi lava tour'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+3'},
+  fun4:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-04.webp',tag:'FUN Pack 4 · Group Tour',title:'Prambanan & Yogya Tour',sub:'Sultan Palace, Tamansari Water Castle & Prambanan Temple Tour',price:'IDR 700.000',pnote:'/group (up to 4 persons)',persons:'👥 1 – 4 Persons',desc:'A perfect way to start exploring the heart of Javanese culture with a visit to the Sultan\'s Palace. Learn about Javanese traditions, daily life, ceremonial customs, and traditional architecture. The tour is completed with a visit to Prambanan Temple, the most beautiful Hindu temple complex in the area.',inc:['Car, fuel, driver as guide','Water (cold water)'],exc:['Admission','Meals','Personal Expenses'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+4'},
+  fun5:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-05.webp',tag:'FUN Pack 5 · Adventure Tour',title:'Jomblang & Timang Tour',sub:'Jomblang Cave & Timang Beach Adventure Tour',price:'IDR 875.000',pnote:'/group (up to 4 persons)',persons:'👥 1 – 4 Persons',desc:'Looking for an adrenaline tour? This trip is a perfect choice. Start the adventure by descending into Jomblang Cave using a rope system to explore its vertical cave and underground landscape. Walk through the cave while enjoying the stalactites, stalagmites, and the famous "heaven light" shining from above. Continue the adventure to Timang Beach, where you will cross the ocean waves to a small offshore island using a traditional gondola or a rope bridge — an exciting challenge that will get your heart racing.',inc:['Car, fuel, driver as guide','Water (cold water)'],exc:['Admission','Meals','Personal Expenses','Jeep to Timang Beach'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+5'},
+  fun6:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-06.webp',tag:'FUN Pack 6 · Nature Tour',title:'Pindul Cave & Yogya Tour',sub:'Pindul Cave, Sri Getuk Waterfall & Pines Forest',price:'IDR 775.000',pnote:'/group (up to 4 persons)',persons:'👥 1 – 4 Persons',desc:'Enjoy a fun and relaxing adventure at Pindul Cave by floating along its underground river while admiring the cave walls, stalactites, stalagmites, and rays of sunlight entering the cave. Continue the journey to the beautiful Sri Gethuk Waterfall, surrounded by rivers, waterfalls, and rice fields with stunning limestone cliffs. The tour ends at Pengger Pine Forest, where you can enjoy panoramic views of Yogyakarta from above.',inc:['Car, fuel, driver as guide','Water (cold water)'],exc:['Admission','Meals','Personal Expenses'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+6'},
+  fun7:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-07.webp',tag:'FUN Pack 7 · Cycling Tour',title:'Cycling Tour de Temple',sub:'Cycling Tour De Temples — Minimum 2 Pax',price:'IDR 275.000',pnote:'/pax (min. 2 pax)',persons:'🚴 Min. 2 Pax',desc:'Enjoy Yogyakarta\'s countryside on a fun cycling tour while exploring several beautiful temples along the route. Cycle through scenic rice fields and peaceful villages, with stops to see and learn about local temples surrounded by rural landscapes. This tour offers a relaxed way to experience Yogyakarta\'s culture, history, and natural scenery.',inc:['Bike','Guide','Hotel Shuttle Service','Water (cold water)','Snack','Lunch'],exc:['Admission','Personal Expenses'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+7'},
+  fun8:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-08.webp',tag:'FUN Pack 8 · Cycling Tour',title:'Cycling Tour de Nature',sub:'FUN Cycling Tour de Nature — Minimum 2 Pax',price:'IDR 250.000',pnote:'/pax (min. 2 pax)',persons:'🚴 Min. 2 Pax',desc:'Enjoy the natural countryside of Yogyakarta as you cycle through green rice fields, local villages, fish farms, and natural spring water ponds. The route is easy, refreshing, and fun — perfect for a relaxed outdoor experience.',inc:['Bike','Guide','Hotel Shuttle Service','Water (cold water)','Snack','Lunch'],exc:['Admission','Personal Expenses'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+8'},
+  fun9:{img:'https://yogyafuntour.com/wp-content/uploads/2024/07/paket-yogya-fun-09.webp',tag:'FUN Pack 9 · Culture Tour',title:'Yogya City Tour & Batik Class',sub:'Yogya City Tour, Prambanan Temple & Batik Class',price:'IDR 700.000',pnote:'/group (up to 4 persons)',persons:'👥 1 – 4 Persons',desc:"It's about a JAVA's culture tour. Start by enjoying the central of Javanese culture at Kraton (Sultan Palace). Here we can look and learn Javanese architecture, music instruments, batik, and much more. Continue to visit the most beautiful Hindu temple of Prambanan. Then the tour will be completed by a Batik Class. Let's learn how to make batik from the process to design, colouring, and finishing. Do you like it? Keep the batik you make as a souvenir!",inc:['Car','Fuel','Water (cold water)','Driver as Guide'],exc:['Admission','Personal Expenses','Meals','Batik Class fee'],wa:'https://api.whatsapp.com/send/?phone=6281228123472&text=Hello+yogyafuntour.com+I+want+to+book+Yogya+FUN+9'}
+};
+
+/* ── Hamburger Menu ── */
+let menuOpen=false;
+function toggleMenu(){
+  menuOpen=!menuOpen;
+  document.getElementById('menuBtn').classList.toggle('open',menuOpen);
+  document.getElementById('menuDropdown').classList.toggle('open',menuOpen);
+}
+function closeMenu(){
+  menuOpen=false;
+  document.getElementById('menuBtn').classList.remove('open');
+  document.getElementById('menuDropdown').classList.remove('open');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#menuBtn')&&!e.target.closest('#menuDropdown'))closeMenu();
+});
+
+/* ── Show All Packages ── */
+let allShown=false;
+function toggleAllPackages(){
+  allShown=!allShown;
+  document.querySelectorAll('.pkg-card.hidden-pkg').forEach(el=>{
+    el.classList.toggle('show',allShown);
+    if(allShown){el.style.animation='fadeUp .5s ease both'}
+  });
+  const btn=document.getElementById('showAllBtn');
+  btn.classList.toggle('expanded',allShown);
+  document.getElementById('showAllText').textContent=allShown?'✕ Hide Packages':'🗺️ See All 9 Packages';
+}
+
+/* ── Gallery Tabs ── */
+function switchGallery(cat,btn){
+  document.querySelectorAll('.gallery-cat').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('cat-'+cat).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── Modal ── */
+const modal=document.getElementById('modal');
+const overlay=document.getElementById('overlay');
+let startY=0,curY=0,dragging=false;
+
+function openModal(id){
+  const p=P[id];if(!p)return;
+  document.getElementById('m-img').src=p.img;
+  document.getElementById('m-tag').textContent=p.tag;
+  document.getElementById('m-title').textContent=p.title;
+  document.getElementById('m-sub').textContent=p.sub;
+  document.getElementById('m-price').textContent=p.price;
+  document.getElementById('m-pnote').textContent=p.pnote;
+  document.getElementById('m-persons').textContent=p.persons;
+  document.getElementById('m-desc').textContent=p.desc;
+  document.getElementById('m-wa').href=p.wa;
+  document.getElementById('m-inc').innerHTML=p.inc.map(i=>`<li>${i}</li>`).join('');
+  document.getElementById('m-exc').innerHTML=p.exc.map(i=>`<li>${i}</li>`).join('');
+  modal.scrollTop=0;
+  overlay.classList.add('open');
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  overlay.classList.remove('open');
+  modal.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* Swipe down to close */
+modal.addEventListener('touchstart',e=>{startY=e.touches[0].clientY;dragging=true},{passive:true});
+modal.addEventListener('touchmove',e=>{
+  if(!dragging||modal.scrollTop>0)return;
+  curY=e.touches[0].clientY-startY;
+  if(curY>0)modal.style.transform=`translateY(${curY}px)`;
+},{passive:true});
+modal.addEventListener('touchend',()=>{
+  if(curY>80)closeModal();
+  modal.style.transform='';dragging=false;curY=0;
+});
+
+/* Navbar scroll */
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50),{passive:true});
+
+/* Scroll fade-in */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+}),{threshold:.06});
+document.querySelectorAll('.pkg-card:not(.hidden-pkg),.why-item,.testi-item,.gal-item,.stat,.t-card').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';
+  el.style.transition='opacity .55s ease,transform .55s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
